@@ -1,0 +1,7 @@
+User-agent: *
+{{ if or (eq hugo.Environment "staging") (eq hugo.Environment "production") }}
+Allow: /
+{{ else -}}
+Disallow: /
+{{ end }}
+Sitemap: {{ "sitemap.xml" | absURL -}}

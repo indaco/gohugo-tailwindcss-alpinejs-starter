@@ -1,0 +1,15 @@
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<!-- Styles -->
+{{ $css := resources.Get "css/main.css" }} {{ $css = $css | postCSS (dict
+"config" "./assets/css/postcss.config.js") }} {{ if or (eq hugo.Environment
+"staging") (eq hugo.Environment "production") }} {{ $css = $css |
+resources.Minify | resources.Fingerprint "sha512" | resources.PostProcess }}
+<link
+  rel="stylesheet"
+  href="{{ $css.RelPermalink }}"
+  integrity="{{ $css.Data.Integrity }}"
+  media="screen"
+/>
+{{ else }}
+<link rel="stylesheet" href="{{ $css.RelPermalink }}" media="screen" />
+{{ end }}

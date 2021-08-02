@@ -1,0 +1,43 @@
+<div
+  class="inset-x-0 bottom-0"
+  x-data="{ hide_banner: true, cookie_name: 'smds2021' }"
+  x-init="hide_banner = docCookies.hasItem(cookie_name) ? (docCookies.getItem(cookie_name) == 'true') : false;"
+  x-bind:class="{ 'hidden': hide_banner, 'fixed': !hide_banner }"
+>
+  <div class="text-white bg-gray-900 opacity-90">
+    <div class="px-3 py-3 mx-auto max-w-7xl sm:px-6 lg:px-8">
+      <div
+        class="flex flex-col items-center p-4 space-y-4  md:space-x-4 md:mx-auto md:flex-row md:space-y-0 lg:mx-auto lg:space-x-12 lg:w-11/12 md:w-11/12 xl:space-x-20"
+      >
+        <div class="flex-grow">
+          <div class="flex flex-col">
+            <p class="ml-3 font-bold uppercase">Informativa</p>
+            <p class="ml-3 font-medium text-justify">
+              This website uses cookies
+              <span>
+                We use cookies to personalise content and ads...
+                <a class="font-bold text-indigo-200" href="/privacy"
+                  >accept text</a
+                >
+                by example.com</span
+              >
+            </p>
+          </div>
+        </div>
+        <div
+          class="flex-shrink-0 order-3 w-full mt-2 sm:order-2 sm:mt-0 sm:w-auto"
+        >
+          <button
+            type="button"
+            name="agreeOnThePrivacy"
+            class="inline-flex items-center px-4 py-2 text-base font-medium text-white bg-indigo-600 border border-transparent rounded-md shadow-sm  hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            @click="hide_banner = true; docCookies.setItem(cookie_name, true, (7*24*60*60));"
+            aria-label="Accetto l'informativa sulla privicy."
+          >
+            Ho Capito
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

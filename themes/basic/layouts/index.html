@@ -1,0 +1,41 @@
+{{ define "main"}}
+
+<section class="text-blueGray-700">
+  <div class="container flex flex-col px-5 py-24 mx-auto lg:items-center">
+    <div class="flex flex-col w-full mb-12 text-center">
+      <h1
+        class="mb-4 text-xl font-semibold tracking-widest text-indigo-600 uppercase "
+      >
+        {{ .Site.Params.WelcomeMessage }}
+      </h1>
+      <h2
+        class="mb-6 text-3xl font-semibold tracking-wide text-gray-700  md:text-4xl"
+      >
+        Here are Hugo, TailWindCSS and Alpinejs v3
+      </h2>
+      <h3 class="mx-auto text-xl md:text-2xl">{{ .Content }}</h3>
+    </div>
+    <div class="flex items-center justify-center space-x-3">
+      <a
+        href="https://gohugo.io"
+        target="blank"
+        class="flex items-center px-6 py-2 font-semibold text-indigo-600 transition duration-500 ease-in-out bg-indigo-100 rounded-lg  hover:bg-indigo-600 hover:text-indigo-100"
+        >Hugo</a
+      >
+      <a
+        href="https://tailwindcss.com"
+        target="blank"
+        class="flex items-center px-6 py-2 font-semibold text-indigo-600 transition duration-500 ease-in-out bg-indigo-100 rounded-lg  hover:bg-indigo-600 hover:text-indigo-100"
+        >TailwindCSS</a
+      >
+      <a
+        href="https://alpinejs.dev"
+        target="blank"
+        class="flex items-center px-6 py-2 font-semibold text-indigo-600 transition duration-500 ease-in-out bg-indigo-100 rounded-lg  hover:bg-indigo-600 hover:text-indigo-100"
+        >Alpinejs</a
+      >
+    </div>
+  </div>
+</section>
+
+{{ end }}

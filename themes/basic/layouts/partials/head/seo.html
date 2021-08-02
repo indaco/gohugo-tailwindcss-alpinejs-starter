@@ -1,0 +1,66 @@
+<!-- TITLE -->
+<title itemprop="name">{{ .Site.Params.title }}</title>
+<!-- Search Engine Crawler Tags -->
+{{ if eq .Kind "404" -}}
+<meta name="robots" content="noindex, follow" />
+{{ else -}} {{ with .Params.robots -}}
+<meta name="robots" content="{{ . }}" />
+{{ else -}}
+<meta name="robots" content="index, follow" />
+<meta
+  name="googlebot"
+  content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+/>
+<meta
+  name="bingbot"
+  content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+/>
+{{ end -}} {{ end -}}
+
+<meta itemprop="name" content="{{ .Title }} {{ .Site.Params.Title }}" />
+<meta name="application-name" content="{{ .Title }} {{ .Site.Params.Title }}" />
+<meta name="author" content="{{ .Site.Params.Webmaster.author }}" />
+<!-- Description Tags -->
+<meta
+  name="description"
+  content="
+{{- with .Page.Description -}}
+    {{ . }}
+{{- else -}}
+    {{ .Site.Params.description }}
+{{- end -}}"
+/>
+<meta itemprop="description" content="{{ .Site.Params.description }}" />
+<meta name="url" content="{{ .Permalink }}" />
+
+<!-- Facebook Meta Tags -->
+<meta property="og:url" content="{{ .Site.BaseURL }}" />
+<meta property="og:site_name" content="{{ .Site.Params.Title }}" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="{{ .Site.Params.Title }}" />
+<meta property="og:description" content="{{ .Site.Params.description }}" />
+<meta
+  property="og:image"
+  content="{{ .Site.BaseURL }}images/{{ .Site.Params.logo}}"
+/>
+
+<!-- Twitter Meta Tags -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="twitter:url" content="{{ .Site.BaseURL }}" />
+<meta name="twitter:title" content="{{ .Site.Params.Title }}" />
+<meta name="twitter:description" content="{{ .Site.Params.description }}" />
+<meta
+  name="twitter:image"
+  content="{{ .Site.BaseURL }}images/{{ .Site.Params.logo}}"
+/>
+
+<!-- Keywords Tag -->
+{{ if .Site.Params.Keywords }} <meta name="keywords" content="{{ delimit
+.Site.Params.Keywords ", "}}"/> {{ end }} {{ if .Params.Keywords }} <meta
+name="keywords" content="{{ delimit .Params.Keywords " ,"}}"/> {{ end }}
+
+<!-- Link Tags -->
+<base href="{{ .Site.BaseURL }}" />
+<link rel="canonical" href="{{ .Site.BaseURL }}" itemprop="url" />
+<!-- JSON-LD -->
+{{ partial "head/structured-data.html" . }}

@@ -1,0 +1,7 @@
+WelcomeMessage = "Hello Folks!"
+
+gdpr = false
+
+[Webmaster]
+  author = "indaco"
+  license = "MIT"

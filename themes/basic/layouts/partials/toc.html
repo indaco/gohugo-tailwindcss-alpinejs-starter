@@ -1,0 +1,201 @@
+{{- $headers := findRE "<h[1-4].*?>(.|\n])+?</h[1-4]>" .Content -}}
+{{- $has_headers := ge (len $headers) 1 -}}
+{{- if $has_headers -}}
+
+{{- $largest := 6 -}}
+{{- range $headers -}}
+  {{- $headerLevel := index (findRE "[1-4]" . 1) 0 -}}
+  {{- $headerLevel := len (seq $headerLevel) -}}
+  {{- if lt $headerLevel $largest -}}
+    {{- $largest = $headerLevel -}}
+  {{- end -}}
+{{- end -}}
+
+{{- $firstHeaderLevel := len (seq (index (findRE "[1-4]" (index $headers 0) 1) 0)) -}}
+
+{{- $.Scratch.Set "bareul" slice -}}
+<div class="relative hidden mx-auto max-w-prose lg:max-w-none sm:hidden lg:block">
+  <blockquote class="relative border-gray-200 rounded-lg shadow-lg bg-gray-50">
+    <div class="px-6 py-8 my-8 sm:px-10 sm:pt-10 sm:pb-8 sm:my-8 md:my-8 lg:my-4">
+      <h4 class="mb-2 text-lg font-semibold text-gray-700 uppercase break-words ">Indice</h4>
+      <ul>
+        {{- range seq (sub $firstHeaderLevel $largest) -}}
+          <ul>
+          {{- $.Scratch.Add "bareul" (sub (add $largest .) 1) -}}
+        {{- end -}}
+        {{- range $i, $header := $headers -}}
+          {{- $headerLevel := index (findRE "[1-4]" . 1) 0 -}}
+          {{- $headerLevel := len (seq $headerLevel) -}}
+
+          {{/* get id="xyz" */}}
+          {{ $id := index (findRE "(id=\"(.*?)\")" $header 9) 0 }}
+
+          {{/* strip id="" to leave xyz (no way to get regex capturing groups in hugo :( */}}
+          {{ $cleanedID := replace (replace $id "id=\"" "") "\"" "" }}
+          {{- $header := replaceRE "<h[1-4].*?>((.|\n])+?)</h[1-4]>" "$1" $header -}}
+
+          {{- if ne $i 0 -}}
+            {{- $prevHeaderLevel := index (findRE "[1-4]" (index $headers (sub $i 1)) 1) 0 -}}
+            {{- $prevHeaderLevel := len (seq $prevHeaderLevel) -}}
+              {{- if gt $headerLevel $prevHeaderLevel -}}
+                {{- range seq $prevHeaderLevel (sub $headerLevel 1) -}}
+                  <ul>
+                  {{/* the first should not be recorded */}}
+                  {{- if ne $prevHeaderLevel . -}}
+                    {{- $.Scratch.Add "bareul" . -}}
+                  {{- end -}}
+                {{- end -}}
+              {{- else -}}
+                </li>
+                {{- if lt $headerLevel $prevHeaderLevel -}}
+                  {{- range seq (sub $prevHeaderLevel 1) -1 $headerLevel -}}
+                    {{- if in ($.Scratch.Get "bareul") . -}}
+                      </ul>
+                      {{/* manually do pop item */}}
+                      {{- $tmp := $.Scratch.Get "bareul" -}}
+                      {{- $.Scratch.Delete "bareul" -}}
+                      {{- $.Scratch.Set "bareul" slice}}
+                      {{- range seq (sub (len $tmp) 1) -}}
+                        {{- $.Scratch.Add "bareul" (index $tmp (sub . 1)) -}}
+                      {{- end -}}
+                    {{- else -}}
+                      </ul></li>
+                    {{- end -}}
+                  {{- end -}}
+                {{- end -}}
+              {{- end -}}
+              <li class="flex items-center">
+                <span class="mr-1 text-lightBlue-600">
+                  <svg class="block w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                      stroke="currentColor" aria-hidden="true">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 20l4-16m2 16l4-16M6 9h14M4 15h14" />
+                  </svg>
+                </span>
+                <button aria-label="Scroll To Section" class="px-2 leading-relaxed text-left text-gray-700 rounded-md focus:outline-none hover:bg-lightBlue-600 hover:text-white" x-data x-on:click="$scroll('#{{- $cleanedID  -}}')">{{- $header | safeHTML -}}</button>
+          {{- else -}}
+          <li class="flex items-center">
+            <span class="mr-1 text-lightBlue-600">
+            <svg class="block w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 20l4-16m2 16l4-16M6 9h14M4 15h14" />
+            </svg>
+          </span>
+            <button aria-label="Scroll To Section" class="px-2 leading-relaxed text-left text-gray-700 rounded-md focus:outline-none hover:bg-lightBlue-600 hover:text-white" x-data x-on:click="$scroll('#{{- $cleanedID  -}}')">{{- $header | safeHTML -}}</button>
+          {{- end -}}
+        {{- end -}}
+        <!-- {{- $firstHeaderLevel := len (seq (index (findRE "[1-4]" (index $headers 0) 1) 0)) -}} -->
+        {{ $firstHeaderLevel := $largest }}
+        {{- $lastHeaderLevel := len (seq (index (findRE "[1-4]" (index $headers (sub (len $headers) 1)) 1) 0)) -}}
+        </li>
+        {{- range seq (sub $lastHeaderLevel $firstHeaderLevel) -}}
+          {{- if in ($.Scratch.Get "bareul") (add . $firstHeaderLevel) -}}
+            </ul>
+          {{- else -}}
+            </ul></li>
+          {{- end -}}
+        {{- end -}}
+      </ul>
+    </div>
+  </blockquote>
+</div>
+
+<!-- MOBILE TOC -->
+<div class="flex-col py-4 my-6 overflow-auto border-t border-cyan-500 sm:flex lg:hidden"  x-data="{ tocIsOpen : false }" :aria-expanded="tocIsOpen">
+  <nav>
+    <div class="flex items-center">
+        <button @click="tocIsOpen = !tocIsOpen"
+            class="p-2 text-gray-600 border border-gray-200 rounded-lg hover:text-white hover:bg-lightBlue-700 focus:outline-none focus:text-white focus:bg-lightBlue-700 focus:ring-2 focus:ring-inset focus:ring-lightBlue-300">
+            <span class="sr-only">Open TOC menu</span>
+            <svg class="block w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+        </button>
+        <h2 class="pl-2 my-0 text-xl font-medium text-gray-800 uppercase break-words ">Indice</h2>
+    </div>
+    <div class="absolute top-auto bottom-auto right-auto p-0 -left-4" role="menu" x-show="tocIsOpen" @click.away="tocIsOpen = false">
+      <div class="relative z-50 max-w-sm m-4 overflow-hidden bg-white border border-gray-200 rounded-md shadow-lg">
+        <ul class="relative p-4 overflow-x-hidden overflow-y-auto overscroll-y-auto overscroll-x-auto" >
+        {{- range seq (sub $firstHeaderLevel $largest) -}}
+          <ul>
+          {{- $.Scratch.Add "bareul" (sub (add $largest .) 1) -}}
+        {{- end -}}
+        {{- range $i, $header := $headers -}}
+          {{- $headerLevel := index (findRE "[1-4]" . 1) 0 -}}
+          {{- $headerLevel := len (seq $headerLevel) -}}
+
+          {{/* get id="xyz" */}}
+          {{ $id := index (findRE "(id=\"(.*?)\")" $header 9) 0 }}
+
+          {{/* strip id="" to leave xyz (no way to get regex capturing groups in hugo :( */}}
+          {{ $cleanedID := replace (replace $id "id=\"" "") "\"" "" }}
+          {{- $header := replaceRE "<h[1-4].*?>((.|\n])+?)</h[1-4]>" "$1" $header -}}
+
+          {{- if ne $i 0 -}}
+            {{- $prevHeaderLevel := index (findRE "[1-4]" (index $headers (sub $i 1)) 1) 0 -}}
+            {{- $prevHeaderLevel := len (seq $prevHeaderLevel) -}}
+              {{- if gt $headerLevel $prevHeaderLevel -}}
+                {{- range seq $prevHeaderLevel (sub $headerLevel 1) -}}
+                  <ul>
+                  {{/* the first should not be recorded */}}
+                  {{- if ne $prevHeaderLevel . -}}
+                    {{- $.Scratch.Add "bareul" . -}}
+                  {{- end -}}
+                {{- end -}}
+              {{- else -}}
+                </li>
+                {{- if lt $headerLevel $prevHeaderLevel -}}
+                  {{- range seq (sub $prevHeaderLevel 1) -1 $headerLevel -}}
+                    {{- if in ($.Scratch.Get "bareul") . -}}
+                      </ul>
+                      {{/* manually do pop item */}}
+                      {{- $tmp := $.Scratch.Get "bareul" -}}
+                      {{- $.Scratch.Delete "bareul" -}}
+                      {{- $.Scratch.Set "bareul" slice}}
+                      {{- range seq (sub (len $tmp) 1) -}}
+                        {{- $.Scratch.Add "bareul" (index $tmp (sub . 1)) -}}
+                      {{- end -}}
+                    {{- else -}}
+                      </ul></li>
+                    {{- end -}}
+                  {{- end -}}
+                {{- end -}}
+              {{- end -}}
+              <li class="flex items-center">
+                <span class="mr-1 text-lightBlue-600">
+                  <svg class="block w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                      stroke="currentColor" aria-hidden="true">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 20l4-16m2 16l4-16M6 9h14M4 15h14" />
+                  </svg>
+                </span>
+                <button class="px-2 text-left text-gray-900 rounded-md focus:outline-none hover:bg-lightBlue-600 hover:text-white" x-data x-on:click="$scroll('#{{- $cleanedID  -}}')">{{- $header | safeHTML -}}</button>
+          {{- else -}}
+          <li class="flex items-center">
+            <span class="mr-1 text-lightBlue-600">
+              <svg class="block w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                  stroke="currentColor" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 20l4-16m2 16l4-16M6 9h14M4 15h14" />
+              </svg>
+            </span>
+            <button class="px-2 text-left text-gray-700 rounded-md focus:outline-none hover:bg-lightBlue-600 hover:text-white" x-data x-on:click="$scroll('#{{- $cleanedID  -}}')">{{- $header | safeHTML -}}</button>
+          {{- end -}}
+        {{- end -}}
+        <!-- {{- $firstHeaderLevel := len (seq (index (findRE "[1-4]" (index $headers 0) 1) 0)) -}} -->
+        {{ $firstHeaderLevel := $largest }}
+        {{- $lastHeaderLevel := len (seq (index (findRE "[1-4]" (index $headers (sub (len $headers) 1)) 1) 0)) -}}
+        </li>
+        {{- range seq (sub $lastHeaderLevel $firstHeaderLevel) -}}
+          {{- if in ($.Scratch.Get "bareul") (add . $firstHeaderLevel) -}}
+            </ul>
+          {{- else -}}
+            </ul></li>
+          {{- end -}}
+        {{- end -}}
+      </ul>
+      </div>
+    </div>
+  </nav>
+</div>
+
+
+{{- end -}}

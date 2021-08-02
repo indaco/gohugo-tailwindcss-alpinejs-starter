@@ -1,0 +1,50 @@
+{
+  "name": "hugotailwind-actions",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev-server": "hugo server -D",
+    "start": "hugo --gc",
+    "build": "rm -rf public && hugo --gc --minify",
+    "lint": "npm run -s lint:scripts && npm run -s lint:markdown",
+    "lint:scripts": "eslint themes/nsanetails/assets/js",
+    "lint:markdown": "markdownlint *.md content/**/*.md"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/indaco/gohugo-tailwindcss-alpinejs-starter.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/indaco/gohugo-tailwindcss-alpinejs-starter/issues"
+  },
+  "homepage": "https://github.com/indaco/gohugo-tailwindcss-alpinejs-starter#readme",
+  "devDependencies": {
+    "@fullhuman/postcss-purgecss": "github:fullhuman/postcss-purgecss",
+    "@tailwindcss/aspect-ratio": "^0.2.1",
+    "@tailwindcss/forms": "^0.3.3",
+    "@tailwindcss/line-clamp": "^0.2.1",
+    "@tailwindcss/typography": "^0.4.1",
+    "autoprefixer": "^10.3.1",
+    "eslint": "^7.32.0",
+    "eslint-plugin-prettier": "^3.4.0",
+    "markdownlint-cli": "^0.27.1",
+    "postcss": "^8.3.6",
+    "postcss-cli": "^8.3.1",
+    "postcss-import": "^14.0.2",
+    "prettier": "^2.3.2",
+    "tailwindcss": "^2.2.7"
+  },
+  "browserslist": [
+    "last 1 version",
+    "> 1%",
+    "maintained node versions",
+    "not dead"
+  ],
+  "dependencies": {
+    "@alpine-collective/toolkit-scroll": "^1.0.0"
+  }
+}

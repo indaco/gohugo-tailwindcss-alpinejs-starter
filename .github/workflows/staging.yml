@@ -1,0 +1,43 @@
+name: Staging Deploy
+on:
+  push:
+    branches: [staging]
+jobs:
+  web-deploy:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: ./
+    steps:
+      - name: Get latest code
+        uses: actions/checkout@v2.3.4
+        with:
+          submodules: true # Fetch Hugo themes (true OR recursive)
+          fetch-depth: 0 # Fetch all history for .GitInfo and .Lastmod
+
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v2
+        with:
+          hugo-version: 'latest'
+
+      - name: npm install
+        run: npm install
+
+      - name: Build minified
+        run: hugo --environment staging --minify
+
+      - name: FTP Deploy to Staging domain
+        uses: SamKirkland/FTP-Deploy-Action@4.1.0
+        with:
+          server: ${{ secrets.staging_ftp_hostname }}
+          username: ${{ secrets.staging_ftp_username }}
+          password: ${{ secrets.staging_ftp_password }}
+          dry-run: false
+          local-dir: ./public/
+          server-dir: ${{ secrets.staging_server_folder }}
+          exclude: .git*
+            - .git*/**
+            -  **/.git*/**
+            - node_modules/**
+            - node_modules/**/*

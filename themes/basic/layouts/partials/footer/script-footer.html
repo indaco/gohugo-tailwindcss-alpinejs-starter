@@ -1,0 +1,12 @@
+{{ $main := resources.Get "js/main.js" }} {{ $cookies := resources.Get
+"js/cookies.min.js"}} {{ $libs := slice $main $cookies}} {{ $secureJS := $libs |
+resources.Concat "js/app.js" | resources.Minify | resources.Fingerprint "sha512"
+}}
+<script
+  type="text/javascript"
+  src="{{ $secureJS.RelPermalink }}"
+  integrity="{{ $secureJS.Data.Integrity }}"
+></script>
+{{ if .Params.scrollScript }}
+<script src="https://cdn.jsdelivr.net/gh/alpine-collective/alpine-magic-helpers@1.0.x/dist/scroll.min.js"></script>
+{{ end }}

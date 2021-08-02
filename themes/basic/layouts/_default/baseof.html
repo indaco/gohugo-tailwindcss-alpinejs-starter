@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang='{{ .Site.LanguageCode | default "en" }}'>
+  {{ partial "head/head.html" . }}
+  <body class="font-body">
+    {{ partial "header/header.html" . }}
+
+    <div class="content">{{ block "main" . }}{{ end }}</div>
+
+    <!-- SCROLL-TO-TOP BUTTON -->
+    {{ partial "partials/scrollToTop.html" . }}
+    <!-- END OF SCROLL-TO-TOP BUTTON -->
+
+    {{ partial "footer/footer.html" . }} {{ if and .IsHome .Site.Params.gdpr }}
+    {{ partial "footer/gdpr-banner.html" . }} {{ end }} {{ partial
+    "footer/script-footer.html" . }}
+  </body>
+</html>

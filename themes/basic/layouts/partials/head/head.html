@@ -1,0 +1,13 @@
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  {{ block "head/favicons" . }}{{ partial "head/favicons.html" . }}{{ end }} {{
+  block "head/seo" . }}{{ partial "head/seo.html" . }}{{ end }} {{ block
+  "head/stylesheets" . }}{{ partial "head/stylesheets.html" . }}{{ end }} {{
+  block "head/scripts-header" . }}{{ partial "head/scripts-header.html" . }}{{
+  end }} {{ if not (in (.Site.BaseURL | string) "localhost") }} {{ block
+  "head/resources" . }}{{ partial "head/resources.html" . }}{{ end }} {{ end }}
+</head>
