@@ -3,7 +3,7 @@
     id="scrollToTop"
     name="scroll to top button"
     aria-label="scroll to top button"
-    class="fixed z-50 w-10 h-10 font-bold text-center text-white transition-all duration-1000 ease-in-out transform bg-purple-600 rounded-full cursor-pointer animate-bounce bottom-24 right-8 focus:outline-none"
+    class="fixed z-50 w-10 h-10 font-bold text-center text-white transition-all duration-1000 ease-in-out transform bg-violet-600 rounded-full cursor-pointer animate-bounce bottom-24 right-8 focus:outline-none"
     :class="{ 'opacity-0 translate-y-24': !atTop, 'opacity-1 translate-y-2' :  atTop}"
     @click="window.scrollTo({ top: 0, behavior: 'smooth'})"
     @scroll.window="atTop = (window.pageYOffset > 200) ? true : false"
