@@ -45,6 +45,7 @@
     "not dead"
   ],
   "dependencies": {
+    "alpinejs": "^3.10.5",
     "@alpine-collective/toolkit-scroll": "^1.0.0"
   }
 }

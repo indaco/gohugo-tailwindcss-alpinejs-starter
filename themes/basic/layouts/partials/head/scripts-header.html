@@ -1,4 +1,9 @@
 <!-- JS Libraries -->
+<script type="module">
+  import Alpine from '/js/alpinejs.js';
+  window.Alpine = Alpine;
+  Alpine.start();
+</script>
 
 {{ if .Site.Params.scrollScript }}
 <script type="module">
@@ -8,5 +13,3 @@
   });
 </script>
 {{ end }}
-
-<script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
