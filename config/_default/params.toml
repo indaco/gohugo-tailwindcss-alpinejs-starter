@@ -2,6 +2,8 @@ WelcomeMessage = "Hello Folks!"
 
 gdpr = false
 
+scrollScript = true
+
 [Webmaster]
   author = "indaco"
   license = "MIT"
