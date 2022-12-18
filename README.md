@@ -2,7 +2,7 @@
 
 Starter project with Hugo as CMS, TailwindCSS and Alpinejs.
 
-- set up to use latest Tailwind CSS - v2.2+
+- set up to use latest Tailwind CSS - 3.2.+
 - includes the @tailwindcss/typography, @tailwindcss/form, @tailwindcss/line-clamp plugins
 - use Hugo Pipes to build and load css based on dev or build environment
 - purge unused css classes with PurgeCSS for build, but not in dev
