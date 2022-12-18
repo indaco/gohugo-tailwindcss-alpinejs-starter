@@ -4,12 +4,12 @@
   x-init="hide_banner = docCookies.hasItem(cookie_name) ? (docCookies.getItem(cookie_name) == 'true') : false;"
   x-bind:class="{ 'hidden': hide_banner, 'fixed': !hide_banner }"
 >
-  <div class="text-white bg-gray-900 opacity-90">
+  <div class="text-white bg-zinc-900 opacity-90">
     <div class="px-3 py-3 mx-auto max-w-7xl sm:px-6 lg:px-8">
       <div
         class="flex flex-col items-center p-4 space-y-4  md:space-x-4 md:mx-auto md:flex-row md:space-y-0 lg:mx-auto lg:space-x-12 lg:w-11/12 md:w-11/12 xl:space-x-20"
       >
-        <div class="flex-grow">
+        <div class="grow">
           <div class="flex flex-col">
             <p class="ml-3 font-bold uppercase">Informativa</p>
             <p class="ml-3 font-medium text-justify">
@@ -25,7 +25,7 @@
           </div>
         </div>
         <div
-          class="flex-shrink-0 order-3 w-full mt-2 sm:order-2 sm:mt-0 sm:w-auto"
+          class="shrink-0 order-3 w-full mt-2 sm:order-2 sm:mt-0 sm:w-auto"
         >
           <button
             type="button"

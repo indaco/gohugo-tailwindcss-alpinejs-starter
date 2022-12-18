@@ -1,15 +1,17 @@
-const colors = require("tailwindcss/colors");
+//const colors = require("tailwindcss/colors");
 
-const contentDir = __dirname + "/../../../../content/";
-const themesDir = __dirname + "/../../../";
+const rootDir = __dirname + "/../../../..";
+const layoutsDir = rootDir + "/layouts";
+const themesDir = rootDir + "/themes";
+const contentDir = rootDir + "/content";
 
 module.exports = {
-  purge: [
-    themesDir + "layouts/**/*.html",
-    contentDir + "content/**/*.md",
-    contentDir + "content/**/*.html",
+  content: [
+    layoutsDir + "/**/*.html",
+    themesDir + "/**/*.html",
+    contentDir + "/**/*.md",
+    contentDir + "/**/*.html",
   ],
-  darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
       screens: {
@@ -17,9 +19,6 @@ module.exports = {
         xs: "475px",
       },
     },
-  },
-  variants: {
-    extend: {},
   },
   plugins: [
     require("@tailwindcss/forms"),
