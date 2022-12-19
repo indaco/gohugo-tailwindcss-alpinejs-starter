@@ -4,6 +4,8 @@ gdpr = false
 
 scrollScript = true
 
+Title = "GoHugo + AlpineJS + TailwindCSS starter"
+
 [Webmaster]
   author = "indaco"
   license = "MIT"
