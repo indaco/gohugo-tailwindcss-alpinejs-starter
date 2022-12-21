@@ -9,3 +9,13 @@
 [x-cloak] {
   display: none !important;
 }
+
+/* Should survive minification (referred in footer). */
+.example-style {
+  font-weight: normal;
+}
+
+/* No references, so removed when minifying. */
+.removed-style {
+  color: red;
+}
