@@ -56,3 +56,6 @@ rel  = "sitemap"
   [[module.mounts]]
     source = "node_modules/@alpine-collective/toolkit-scroll/dist/module.esm.js"
     target = "static/js/toolkit-scroll.js"
+  [[module.mounts]]
+    source = "node_modules/alpinejs/dist/module.esm.js"
+    target = "static/js/alpinejs.js"

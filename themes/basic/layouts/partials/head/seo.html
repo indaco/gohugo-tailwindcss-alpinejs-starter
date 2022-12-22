@@ -1,5 +1,14 @@
 <!-- TITLE -->
+{{ if .Params.Title }}
+<title itemprop="name">{{ .Params.title }}</title>
+<meta property="og:title" content="{{ .Params.Title }}" />
+<meta name="twitter:title" content="{{ .Params.Title }}" />
+{{ else }}
 <title itemprop="name">{{ .Site.Params.title }}</title>
+<meta property="og:title" content="{{ .Site.Params.Title }}" />
+<meta name="twitter:title" content="{{ .Site.Params.Title }}" />
+{{ end }}
+
 <!-- Search Engine Crawler Tags -->
 {{ if eq .Kind "404" -}}
 <meta name="robots" content="noindex, follow" />
@@ -37,7 +46,6 @@
 <meta property="og:url" content="{{ .Site.BaseURL }}" />
 <meta property="og:site_name" content="{{ .Site.Params.Title }}" />
 <meta property="og:type" content="website" />
-<meta property="og:title" content="{{ .Site.Params.Title }}" />
 <meta property="og:description" content="{{ .Site.Params.description }}" />
 <meta
   property="og:image"
@@ -47,7 +55,6 @@
 <!-- Twitter Meta Tags -->
 <meta name="twitter:card" content="summary_large_image" />
 <meta property="twitter:url" content="{{ .Site.BaseURL }}" />
-<meta name="twitter:title" content="{{ .Site.Params.Title }}" />
 <meta name="twitter:description" content="{{ .Site.Params.description }}" />
 <meta
   name="twitter:image"
