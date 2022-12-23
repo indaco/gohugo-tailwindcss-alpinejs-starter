@@ -11,5 +11,10 @@ resources.Minify | resources.Fingerprint "sha512" | resources.PostProcess }}
   media="screen"
 />
 {{ else }}
+{{/*
+  See https://www.brycewray.com/posts/2022/03/making-tailwind-jit-work-hugo-version-3-edition/,
+  so that tailwind would pick up any new classes we add in content files.
+*/}}
+{{ $css = $css | resources.ExecuteAsTemplate (printf "css/main.dev.%v.css" now.UnixMilli) . }}
 <link rel="stylesheet" href="{{ $css.RelPermalink }}" media="screen" />
 {{ end }}
