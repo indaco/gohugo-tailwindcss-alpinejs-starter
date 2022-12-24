@@ -168,4 +168,6 @@ Temporary Items
 .history
 .ionide
 
+*.swp
+
 # End of https://www.toptal.com/developers/gitignore/api/osx,visualstudiocode,hugo,node
