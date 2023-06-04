@@ -26,17 +26,17 @@
     "@fullhuman/postcss-purgecss": "^5.0.0",
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tailwindcss/forms": "^0.5.3",
-    "@tailwindcss/line-clamp": "^0.4.2",
-    "@tailwindcss/typography": "^0.5.8",
-    "autoprefixer": "^10.4.13",
-    "eslint": "^8.29.0",
+    "@tailwindcss/line-clamp": "^0.4.4",
+    "@tailwindcss/typography": "^0.5.9",
+    "autoprefixer": "^10.4.14",
+    "eslint": "^8.42.0",
     "eslint-plugin-prettier": "^4.2.1",
-    "markdownlint-cli": "^0.32.2",
-    "postcss": "^8.4.20",
+    "markdownlint-cli": "^0.34.0",
+    "postcss": "^8.4.24",
     "postcss-cli": "^10.1.0",
     "postcss-import": "^15.1.0",
-    "prettier": "^2.8.1",
-    "tailwindcss": "^3.2.4"
+    "prettier": "^2.8.8",
+    "tailwindcss": "^3.3.2"
   },
   "browserslist": [
     "last 1 version",
@@ -45,7 +45,7 @@
     "not dead"
   ],
   "dependencies": {
-    "alpinejs": "^3.10.5",
-    "@alpine-collective/toolkit-scroll": "^1.0.0"
+    "@alpine-collective/toolkit-scroll": "^1.0.2",
+    "alpinejs": "^3.12.2"
   }
 }
