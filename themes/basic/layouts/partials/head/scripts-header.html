@@ -1,15 +1,18 @@
-<!-- JS Libraries -->
+<!-- AlpineJS and plugins -->
 <script type="module">
-  import Alpine from '/js/alpinejs.js';
-  window.Alpine = Alpine;
-  Alpine.start();
+	import Alpine from '/js/alpinejs.js';
+	window.Alpine = Alpine;
 </script>
 
 {{ if .Site.Params.scrollScript }}
 <script type="module">
-  import Scroll from '/js/toolkit-scroll.js';
-  document.addEventListener('alpine:initializing', () => {
-    Scroll(window.Alpine);
-  });
+	import Scroll from '/js/toolkit-scroll.js';
+	document.addEventListener('alpine:init', () => {
+		Scroll(window.Alpine);
+	});
 </script>
 {{ end }}
+
+<script type="module">
+	Alpine.start();
+</script>
