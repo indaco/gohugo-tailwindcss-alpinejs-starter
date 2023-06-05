@@ -1,7 +1,7 @@
 {
-  "name": "hugotailwind-actions",
-  "version": "1.0.1",
-  "description": "",
+  "name": "hugo-tailwindcss-alpinejs-starter",
+  "version": "2.0.0",
+  "description": "Starter project with Hugo as CMS, TailwindCSS and Alpine.js",
   "main": "index.js",
   "scripts": {
     "dev-server": "hugo server -D",
