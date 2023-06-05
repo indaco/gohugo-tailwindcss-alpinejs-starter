@@ -1,20 +1,19 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <!-- Styles -->
-{{ $css := resources.Get "css/main.css" }} {{ $css = $css | postCSS (dict
-"config" "./assets/css/postcss.config.js") }} {{ if or (eq hugo.Environment
-"staging") (eq hugo.Environment "production") }} {{ $css = $css |
-resources.Minify | resources.Fingerprint "sha512" | resources.PostProcess }}
+{{ $postCssOptions := dict "config" "./postcss.config.js" }} 
+{{ $css := resources.Get "css/styles.css" }} 
+{{ $css = $css | resources.PostCSS $postCssOptions }} 
+
+{{ if or (eq hugo.Environment "staging") (eq hugo.Environment "production") }} 
+  {{ $css = $css | minify | fingerprint | resources.PostProcess }}
+{{ end }}
 <link
   rel="stylesheet"
   href="{{ $css.RelPermalink }}"
   integrity="{{ $css.Data.Integrity }}"
   media="screen"
 />
-{{ else }}
-{{/*
-  See https://www.brycewray.com/posts/2022/03/making-tailwind-jit-work-hugo-version-3-edition/,
-  so that tailwind would pick up any new classes we add in content files.
-*/}}
-{{ $css = $css | resources.ExecuteAsTemplate (printf "css/main.dev.%v.css" now.UnixMilli) . }}
-<link rel="stylesheet" href="{{ $css.RelPermalink }}" media="screen" />
-{{ end }}
+
+
+
+
