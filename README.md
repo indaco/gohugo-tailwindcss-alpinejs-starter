@@ -2,14 +2,11 @@
 
 Starter project with Hugo as CMS, TailwindCSS and Alpinejs.
 
-- set up to use latest Tailwind CSS - 3.2.+
-- includes the @tailwindcss/typography, @tailwindcss/form, @tailwindcss/line-clamp plugins
-- use Hugo Pipes to build and load css based on dev or build environment
-- purge unused css classes with PurgeCSS for build, but not in dev
-- Alpinejs v3 + `@alpine-collective/toolkit-scroll`
+- Hugo v0.112.7
+- Tailwind CSS v3.3.x + `@tailwindcss/typography`, `@tailwindcss/form` and `@tailwindcss/aspect-ration` plugins
+- Alpinejs v3 + `@alpine-collective/toolkit-scroll` plugin
+- Purge unused css classes with PurgeCSS for build, but not in dev
 - GitHub Actions to build and deploy to FTP servers (staging and production)
-
-It provides two GitHub actions for building and deploy over FTP.
 
 ## Dev-Staging-Production
 
