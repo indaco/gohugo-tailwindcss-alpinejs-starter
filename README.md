@@ -1,11 +1,16 @@
 # Hugo Starter with Tailwind CSS and GitHub Actions
 
-Starter project with Hugo as CMS, TailwindCSS and Alpinejs.
+Starter project with Hugo as CMS, TailwindCSS and Alpinejs:
 
 - Hugo v0.112.7
 - Tailwind CSS v3.3.x + `@tailwindcss/{typography, form, aspect-ratio}` plugins
 - Alpinejs v3 + `@alpine-collective/toolkit-scroll` plugin
 - Purge unused css classes with PurgeCSS for build, but not in dev
+- SEO ready:
+  - Json-Ld: website, organization, webpage, sitenavigationelement, breadcrumbs
+  - OpenGraph
+  - TwitterCard
+- GoogleFonts
 - GitHub Actions to build and deploy to FTP servers (staging and production)
 
 ## Dev-Staging-Production
